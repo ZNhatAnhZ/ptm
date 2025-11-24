@@ -25,6 +25,7 @@ export default function CreateTaskArea({addTask}) {
             ref={inputRef}
             value={newTask}
             style={{ width: "80%" }}
+            placeholder="Add a new task here"
             onChange={(e) => setNewTask(e.target.value)}
         />
         <button onClick={() => {

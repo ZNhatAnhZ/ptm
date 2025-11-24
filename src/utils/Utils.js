@@ -1,7 +1,7 @@
 import {FilterEnum} from "../constants";
 
-export function filterTasks(filter, element) {
-    switch (filter) {
+export function filterStatusTasks(filter, element) {
+    switch (filter.status) {
         case FilterEnum.ACTIVE:
             return !element.isCompleted;
         case FilterEnum.COMPLETED:
@@ -10,4 +10,8 @@ export function filterTasks(filter, element) {
         default:
             return true;
     }
+}
+
+export function filterPrefixDescTasks(filter, element) {
+    return element.description.startsWith(filter.prefixDesc);
 }

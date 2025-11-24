@@ -10,7 +10,6 @@ const TaskItem = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 1em;
     margin-top: 1em;
     border: ${props => props.colorscheme === DarkColorScheme ? null : '1px solid #242424'};
 `;
@@ -25,7 +24,7 @@ export default function Task({element, updateTask}) {
 
     return (
         <TaskItem colorscheme={colorScheme}>
-            <desc>{element.description}</desc>
+            <div>{element.description}</div>
             <div>
                 {element.isCompleted ? null: <Button onClick={() => updateTask({
                     currentDescription: element.description,

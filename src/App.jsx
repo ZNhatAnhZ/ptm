@@ -2,7 +2,7 @@ import styled from "styled-components";
 import {Statistics, FilterArea, CreateTaskArea, Task, BackgroundArea, ColorSchemeArea} from "./components";
 import {DarkColorScheme} from "./constants";
 import {useColorScheme, useFilter, useTask} from "./hooks";
-import {filterTasks} from "./utils";
+import {filterPrefixDescTasks, filterStatusTasks} from "./utils";
 
 const AppArea = styled.div`
     padding: 20px 32px;
@@ -17,7 +17,7 @@ const AppArea = styled.div`
 export default function App() {
     const {colorScheme} = useColorScheme();
     const {tasks, addTask, updateTask} = useTask();
-    const {setFilter, filteredItems} = useFilter(tasks, filterTasks);
+    const {filter, setFilter, filteredItems} = useFilter(tasks, [filterStatusTasks, filterPrefixDescTasks]);
 
     return (
         <BackgroundArea>
@@ -25,7 +25,7 @@ export default function App() {
                 <ColorSchemeArea/>
                 <CreateTaskArea addTask={addTask}/>
                 <Statistics tasks={tasks}/>
-                <FilterArea setFilter={setFilter}/>
+                <FilterArea filter={filter} setFilter={setFilter}/>
                 {filteredItems.map((element) => <Task element={element} updateTask={updateTask}/>)}
             </AppArea>
         </BackgroundArea>

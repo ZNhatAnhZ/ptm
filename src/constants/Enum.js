@@ -4,6 +4,8 @@ export const FilterEnum = {
     COMPLETED: 'COMPLETED'
 };
 
+export const DefaultFilters = {prefixDesc: '', status: FilterEnum.ALL}
+
 export const TaskArrayKey = "TaskArray";
 export const ColorSchemeKey = "ColorSchemeKey";
 

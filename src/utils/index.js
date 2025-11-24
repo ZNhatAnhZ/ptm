@@ -1,3 +1,3 @@
-export {filterTasks} from '../utils/Utils.js';
+export {filterStatusTasks, filterPrefixDescTasks} from '../utils/Utils.js';
 
 
