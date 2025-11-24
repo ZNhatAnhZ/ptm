@@ -27,8 +27,18 @@ export default function Task({element, updateTask}) {
         <TaskItem colorscheme={colorScheme}>
             <desc>{element.description}</desc>
             <div>
-                {element.isCompleted ? null: <Button onClick={() => updateTask(element.description, element.description, true, false)}>✅</Button>}
-                <Button onClick={() => updateTask(element.description, element.description, element.isCompleted, true)}>❌</Button>
+                {element.isCompleted ? null: <Button onClick={() => updateTask({
+                    currentDescription: element.description,
+                    newDescription: element.description,
+                    isCompleted: true,
+                    isDeleted: element.isCompleted
+                })}>✅</Button>}
+                <Button onClick={() => updateTask({
+                    currentDescription: element.description,
+                    newDescription: element.description,
+                    isCompleted: element.isCompleted,
+                    isDeleted: true
+                })}>❌</Button>
             </div>
         </TaskItem>
     )

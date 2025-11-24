@@ -20,8 +20,18 @@ export default function App() {
     const {colorScheme} = useColorScheme();
     const [tasks, setTasks] = useLocalStorage(TaskArrayKey, []);
     const [filter, setFilter] = useState(FilterEnum.ALL);
-    const addTask = (description) => setTasks([...tasks, {description: description, isCompleted: false}]);
-    const updateTask = (currentDescription, newDescription, isCompleted, isDeleted) => {
+    const addTask = ({
+                         description: description,
+                         isCompleted: isCompleted
+                     }) => {
+        setTasks([...tasks, {description: description, isCompleted: isCompleted}])
+    };
+    const updateTask = ({
+                            currentDescription: currentDescription,
+                            newDescription: newDescription,
+                            isCompleted: isCompleted,
+                            isDeleted: isDeleted
+                        }) => {
         if (isDeleted) {
             setTasks(tasks.filter(task => task.description !== currentDescription));
         } else {
@@ -44,7 +54,7 @@ export default function App() {
                 <Statistics tasks={tasks}/>
                 <FilterArea setFilter={setFilter}/>
                 {tasks.filter(element => filterTasks(filter, element))
-                    .map((element) => <Task key={element.description} element={element} updateTask={updateTask}/>)}
+                    .map((element) => <Task element={element} updateTask={updateTask}/>)}
             </AppArea>
         </BackgroundArea>
     )
