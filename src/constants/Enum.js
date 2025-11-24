@@ -5,3 +5,7 @@ export const FilterEnum = {
 };
 
 export const TaskArrayKey = "TaskArray";
+
+export const DefaultColorScheme = "light dark";
+export const DarkColorScheme = DefaultColorScheme;
+export const LightColorScheme = "light";

@@ -1,1 +1,1 @@
-export { FilterEnum, TaskArrayKey } from './Enum.js';
+export { FilterEnum, TaskArrayKey, DefaultColorScheme, DarkColorScheme, LightColorScheme } from './Enum.js';

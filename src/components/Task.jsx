@@ -10,6 +10,7 @@ const TaskItem = styled.div`
     justify-content: space-between;
     margin-bottom: 1em;
     margin-top: 1em;
+    //flex-grow: 1;
 `;
 
 const Button = styled.button`
