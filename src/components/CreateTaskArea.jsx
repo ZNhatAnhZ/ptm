@@ -13,7 +13,7 @@ const TaskAreaDiv = styled.div`
     margin-top: 1em;
 `;
 
-export function CreateTaskArea({addTask}) {
+export default function CreateTaskArea({addTask}) {
     const [newTask, setNewTask] = useState("");
 
     return <TaskAreaDiv>

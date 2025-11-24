@@ -6,7 +6,7 @@ const StatisticsDiv = styled.div`
     align-items: center;
 `;
 
-export function Statistics({tasks}) {
+export default function Statistics({tasks}) {
     const completedTasks = tasks.filter(task => task.isCompleted).length;
     const totalTasks = tasks.length;
     const completedPercentage = totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);

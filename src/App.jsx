@@ -1,12 +1,10 @@
-import {Task} from "./components/Task.jsx";
-import './App.css'
+import './assets/App.css'
 import styled from "styled-components";
 import {useState} from "react";
-import {CreateTaskArea} from "./components/CreateTaskArea.jsx";
-import {FilterArea} from "./components/FilterArea.jsx";
-import {Statistics} from "./components/Statistics.jsx";
-import {FilterEnum, TaskArrayKey} from "./constants/Enum.jsx";
-import {filterTasks, useLocalStorage} from "./utils/Utils.jsx";
+import {Statistics, FilterArea, CreateTaskArea, Task} from "./components";
+import {FilterEnum, TaskArrayKey} from "./constants";
+import {useLocalStorage} from "./hooks";
+import {filterTasks} from "./utils";
 
 const AppArea = styled.div`
     padding: 20px 32px;
@@ -19,7 +17,7 @@ const AppArea = styled.div`
     margin-right: auto;
 `;
 
-function App() {
+export default function App() {
     const [tasks, setTasks] = useLocalStorage(TaskArrayKey, []);
     const [filter, setFilter] = useState(FilterEnum.ALL);
     const addTask = (description) => setTasks([...tasks, {description: description, isCompleted: false}]);
@@ -40,14 +38,12 @@ function App() {
 
     return (
         <AppArea>
-            {CreateTaskArea({addTask})}
-            {Statistics({tasks})}
-            {FilterArea({setFilter})}
+            <CreateTaskArea addTask={addTask}/>
+            <Statistics tasks={tasks}/>
+            <FilterArea setFilter={setFilter}/>
             {tasks.filter(element => filterTasks(filter, element))
-                .map((element) => Task({element, updateTask}))}
+                .map((element) => <Task element={element} updateTask={updateTask}/>)}
         </AppArea>
     )
 
 }
-
-export default App

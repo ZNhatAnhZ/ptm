@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {FilterEnum} from "../constants/Enum.jsx";
+import {FilterEnum} from "../constants";
 
 const FilterAreaDiv = styled.div`
     display: flex;
@@ -7,7 +7,7 @@ const FilterAreaDiv = styled.div`
     justify-content: space-between;
 `;
 
-export function FilterArea({setFilter}) {
+export default function FilterArea({setFilter}) {
     return <FilterAreaDiv>
         <button onClick={() => {
             setFilter(FilterEnum.ALL)

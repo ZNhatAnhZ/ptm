@@ -17,7 +17,7 @@ const Button = styled.button`
     margin-right: 0.5em;
 `;
 
-export function Task({element, updateTask}) {
+export default function Task({element, updateTask}) {
     return (
         <TaskItem>
             <desc>{element.description}</desc>
