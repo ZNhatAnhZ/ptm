@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useRef, useState} from "react";
 import styled from "styled-components";
 
 const TaskAreaDiv = styled.div`
@@ -15,9 +15,14 @@ const TaskAreaDiv = styled.div`
 
 export default function CreateTaskArea({addTask}) {
     const [newTask, setNewTask] = useState("");
+    const inputRef = useRef(null);
+    const focusInput = () => {
+        inputRef.current.focus();
+    };
 
     return <TaskAreaDiv>
         <input
+            ref={inputRef}
             value={newTask}
             style={{ width: "80%" }}
             onChange={(e) => setNewTask(e.target.value)}
@@ -25,6 +30,7 @@ export default function CreateTaskArea({addTask}) {
         <button onClick={() => {
             addTask(newTask);
             setNewTask("");
+            focusInput();
         }}>+</button>
     </TaskAreaDiv>
 }
