@@ -29,7 +29,7 @@ export default function CreateTaskArea({addTask}) {
             onChange={(e) => setNewTask(e.target.value)}
         />
         <button onClick={() => {
-            addTask({description: newTask, isCompleted: false});
+            addTask({id: crypto.randomUUID(), description: newTask, isCompleted: false});
             setNewTask("");
             focusInput();
         }}>+</button>

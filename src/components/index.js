@@ -3,4 +3,4 @@ export {default as FilterArea} from "./FilterArea.jsx";
 export {default as Statistics} from "./Statistics.jsx";
 export {default as Task} from "./Task.jsx";
 export {default as BackgroundArea} from "./BackgroundArea.jsx";
-export {default as ColorSchemeArea} from "./ColorSchemeArea.jsx";
+export {default as UtilsArea} from "./UtilsArea.jsx";

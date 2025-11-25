@@ -3,8 +3,8 @@ import {TaskArrayKey} from "../constants/index.js";
 
 export default function useTask() {
     const [tasks, setTasks] = useLocalStorage(TaskArrayKey, []);
-    const addTask = ({description, isCompleted}) => {
-        setTasks([...tasks, {id: crypto.randomUUID(),description: description, isCompleted: isCompleted}])
+    const addTask = ({id, description, isCompleted}) => {
+        setTasks([...tasks, {id: id, description: description, isCompleted: isCompleted}])
     };
     const updateTask = ({id, newDescription, isCompleted, isDeleted}) => {
         if (isDeleted) {
@@ -20,6 +20,9 @@ export default function useTask() {
             }));
         }
     }
+    const importTasks = (importedTasks) => {
+        setTasks(importedTasks);
+    }
 
-    return {tasks, addTask, updateTask};
+    return {tasks, addTask, updateTask, importTasks};
 }
