@@ -26,7 +26,7 @@ export default function App() {
                 <CreateTaskArea addTask={addTask}/>
                 <Statistics tasks={tasks}/>
                 <FilterArea filter={filter} setFilter={setFilter}/>
-                {filteredItems.map((element) => <Task key={element.description} element={element} updateTask={updateTask}/>)}
+                {filteredItems.map((element) => <Task key={element.id} element={element} updateTask={updateTask}/>)}
             </AppArea>
         </BackgroundArea>
     )

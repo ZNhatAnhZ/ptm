@@ -25,7 +25,7 @@ export default function Task({element, updateTask}) {
     const {colorScheme} = useColorScheme();
     const [currentTaskDesc, setCurrentTaskDesc] = useState(element.description);
     const [enableEdit, setEnableEdit] = useState(false);
-    const inputRef = useRef(null);
+    const inputRef = useRef(element.description);
 
     return (
         <TaskItem colorscheme={colorScheme}>
@@ -33,7 +33,7 @@ export default function Task({element, updateTask}) {
                 if (enableEdit) {
                     setEnableEdit(false);
                     updateTask({
-                        currentDescription: element.description,
+                        id: element.id,
                         newDescription: currentTaskDesc,
                         isCompleted: element.isCompleted,
                         isDeleted: element.isDeleted
@@ -47,14 +47,14 @@ export default function Task({element, updateTask}) {
                 setCurrentTaskDesc(e.target.value);
             }}></input>
             <div>
-                {element.isCompleted ? null: <Button onClick={() => updateTask({
-                    currentDescription: element.description,
+                {element.isCompleted ? null : <Button onClick={() => updateTask({
+                    id: element.id,
                     newDescription: element.description,
                     isCompleted: true,
                     isDeleted: element.isCompleted
                 })}>✅</Button>}
                 <Button onClick={() => updateTask({
-                    currentDescription: element.description,
+                    id: element.id,
                     newDescription: element.description,
                     isCompleted: element.isCompleted,
                     isDeleted: true
