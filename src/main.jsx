@@ -1,13 +1,26 @@
 import {StrictMode} from 'react'
 import {createRoot} from 'react-dom/client'
 import './assets/index.css'
-import App from './App.jsx'
-import {ColorSchemeProvider} from "./contexts/index.js";
+import PtmApp from './PtmApp.jsx'
+import {
+    createBrowserRouter,
+    RouterProvider,
+} from "react-router-dom";
+import UserApp from "./UserApp.jsx";
+
+const router = createBrowserRouter([
+    {
+        path: "/ptm",
+        element: <PtmApp/>,
+    },
+    {
+        path: "/ptm/user",
+        element: <UserApp/>,
+    }
+]);
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
-        <ColorSchemeProvider>
-            <App/>
-        </ColorSchemeProvider>
+        <RouterProvider router={router}/>
     </StrictMode>,
 )

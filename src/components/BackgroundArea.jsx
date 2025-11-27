@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import {useColorScheme} from "../hooks/index.js";
-import {DarkColorScheme, DefaultColorScheme} from "../constants/index.js";
+import {useColorScheme} from "../hooks";
+import {DarkColorScheme, DefaultColorScheme} from "../constants";
 
 const BackgroundDiv = styled.div`
     color-scheme: ${props => props.colorscheme || DefaultColorScheme};

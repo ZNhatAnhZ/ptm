@@ -1,20 +1,12 @@
 import styled from "styled-components";
 import {FilterEnum} from "../constants";
 import {useCallback} from "react";
+import {SearchArea} from "./";
 
 const FilterAreaDiv = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-`;
-
-const SearchAreaDiv = styled.div`
-    display: flex;
-`;
-
-const Input = styled.input`
-    margin-top: 0.5em;
-    width: 100%
 `;
 
 export default function FilterArea({filter, setFilter}) {
@@ -44,8 +36,6 @@ export default function FilterArea({filter, setFilter}) {
                 Completed
             </button>
         </FilterAreaDiv>
-        <SearchAreaDiv>
-            <Input placeholder="Search tasks here" onChange={updateFilter(filter.prefixDesc, filter.status, true)}></Input>
-        </SearchAreaDiv>
+        <SearchArea placeHolder="Search tasks here" onChange={updateFilter(filter.prefixDesc, filter.status, true)}></SearchArea>
     </>;
 }
