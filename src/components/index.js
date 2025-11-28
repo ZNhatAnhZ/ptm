@@ -8,3 +8,7 @@ export {default as AppArea} from "./AppArea.jsx";
 export {default as User} from "./User.jsx";
 export {default as UserList} from "./UserList.jsx";
 export {default as SearchArea} from "./SearchArea.jsx";
+export {default as Modal} from "./Modal.jsx";
+export {default as Item} from "./Item.jsx";
+export {default as Post} from "./Post.jsx";
+export {default as PostList} from "./PostList.jsx";

@@ -1,27 +1,36 @@
 import styled from "styled-components";
-import {DarkColorScheme} from "../constants";
-import {useColorScheme} from "../hooks";
+import {useState} from "react";
+import {Modal} from "./index.js";
+import Item from "./Item.jsx";
+import PostList from "./PostList.jsx";
 
-const UserItem = styled.div`
-    background-color: ${props => props.colorscheme === DarkColorScheme ? 'gray' : 'white'};
-    border-radius: 0.5em;
-    color: ${props => props.colorscheme === DarkColorScheme ? 'white' : 'black'};;
-    padding: 1em 1em;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 1em;
-    border: ${props => props.colorscheme === DarkColorScheme ? null : '1px solid #242424'};
+const Button = styled.button`
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    border: ${props => props.isHightlighted === true ? '2px solid black' : null};
 `;
 
 export default function User({id, name, email, phone, website}) {
-    const {colorScheme} = useColorScheme();
+    const [isShowDetails, setIsShowDetails] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
-        <UserItem colorscheme={colorScheme}>
-            <div>
-                {name}
+        <Item>
+            <div style={{display: 'flex'}}>
+                <Button onClick={() => setIsShowDetails(!isShowDetails)}>+</Button>
+                <span>User: {name}</span>
             </div>
-        </UserItem>
+            <div style={{display: isShowDetails ? 'flex' : 'none', flexDirection: 'column'}}>
+                <div>id: {id}</div>
+                <div>name: {name}</div>
+                <div>email: {email}</div>
+                <div>phone: {phone}</div>
+                <div>website: {website}</div>
+                <div>post: <Button onClick={() => setIsModalOpen(true)}>show posts</Button></div>
+            </div>
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                {isModalOpen ? (<PostList id={id}></PostList>) : null}
+            </Modal>
+        </Item>
     );
 }
