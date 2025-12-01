@@ -2,8 +2,9 @@ import {useQuery} from "@tanstack/react-query";
 import axios from "axios";
 import {User} from "./";
 import {useEffect, useState} from "react";
-import {maxItemsPerPage} from "../constants/Enum.js";
+import {ASC, AZ, DESC, maxItemsPerPage, ZA} from "../constants/Enum.js";
 import styled from "styled-components";
+import {useSorting} from "../hooks/index.js";
 
 const PaginationDev = styled.div`
     display: flex;
@@ -16,8 +17,7 @@ export default function UserList({filter}) {
     const [filteredUsers, setFilteredUsers] = useState([]);
     const [page, setPage] = useState(1);
     const [maxPage, setMaxPage] = useState(1);
-    const [order, setOrder] = useState('asc');
-
+    const [sortedUsers, order, setOrder] = useSorting(users, 'name');
     const {
         data = [],
         isLoading,
@@ -27,71 +27,62 @@ export default function UserList({filter}) {
         queryKey: ['users'],
         queryFn: async () => {
             const response = await axios.get(`https://jsonplaceholder.typicode.com/users`);
-            setMaxPage(Math.ceil(response.data.length / maxItemsPerPage));
-            setUsers(response.data);
             return response.data;
         },
     });
 
+    // init data
     useEffect(() => {
-        if (Array.isArray(users)) {
-            const searchedUsers = typeof filter?.name === 'string' && filter?.name?.length > 0 ? users.filter(user => user.name.startsWith(filter.name)) : users
-            const filteredAndSortedUsers = searchedUsers.sort((a, b) => {
-                if (order === 'asc') {
-                    return a.name.localeCompare(b.name);
-                } else {
-                    return b.name.localeCompare(a.name);
-                }
-            });
+        setMaxPage(Math.ceil(data.length / maxItemsPerPage));
+        setUsers(data);
+    }, [data])
+
+    // handle page bounds
+    useEffect(() => {
+        if (page > maxPage) setPage(maxPage);
+        if (page < 1) setPage(1);
+    }, [page, maxPage]);
+
+    useEffect(() => {
+        if (Array.isArray(sortedUsers)) {
+            const searchedUsers = typeof filter?.name === 'string' && filter?.name?.length > 0 ? sortedUsers.filter(user => user.name.startsWith(filter.name)) : sortedUsers
             const startIndex = (page - 1) * maxItemsPerPage;
-            const paginatedUsers = filteredAndSortedUsers.slice(startIndex, startIndex + maxItemsPerPage);
-            const maxPage = Math.max(1, Math.ceil(filteredAndSortedUsers.length / maxItemsPerPage));
+            const paginatedUsers = searchedUsers.slice(startIndex, startIndex + maxItemsPerPage);
+            const maxPage = Math.max(1, Math.ceil(searchedUsers.length / maxItemsPerPage));
             setFilteredUsers(JSON.stringify(filteredUsers) !== JSON.stringify(paginatedUsers) ? paginatedUsers : filteredUsers);
             setMaxPage(maxPage);
-            if (page > maxPage) {
-                setPage(maxPage);
-            } else if (page < 1) {
-                setPage(1);
-            }
         }
-    }, [data, filter, order, page, users])
+    }, [data, filter, sortedUsers, filteredUsers, order, page, users])
 
     const deleteUser = (id) => {
         setUsers(users.filter(user => user.id !== id));
     }
 
     const renderUserList = () => {
-        if (isLoading) {
-            return <span>Loading...</span>
-        }
-
-        if (isError) {
-            return <span>Error: {error.message}</span>
-        }
-
+        if (isLoading) return <span>Loading...</span>
+        if (isError) return <span>Error: {error.message}</span>
         return (
             <div>
                 <div>Total number of users in the DB: {users.length}</div>
                 <PaginationDev>
                     <button disabled={!(page > 1)} onClick={() => {
-                        if (page > 1) {
-                            setPage(page - 1);
-                        }
+                        if (page > 1) setPage(page - 1);
                     }}>&lt;</button>
                     <div>{page}/{maxPage}</div>
                     <button disabled={!(page < maxPage)} onClick={() => {
-                        if (page < maxPage) {
-                            setPage(page + 1);
-                        }
+                        if (page < maxPage) setPage(page + 1);
                     }}>&gt;</button>
                 </PaginationDev>
                 <button onClick={() => {
-                    setOrder(order === 'asc' ? 'desc' : 'asc');
-                }}>Sort {order === 'asc' ? 'A-Z' : 'Z-A'}</button>
-                {filteredUsers.map(user => <User key={user.id} id={user.id} email={user.email} name={user.name}
-                                         phone={user.phone}
-                                         website={user.website}
-                                         onDelete={() => deleteUser(user.id)}
+                    setOrder(order === ASC ? DESC : ASC);
+                }}>Sort {order === ASC ? AZ : ZA}</button>
+                {filteredUsers.map(user => <User key={user.id}
+                                                 id={user.id}
+                                                 email={user.email}
+                                                 name={user.name}
+                                                 phone={user.phone}
+                                                 website={user.website}
+                                                 onDelete={() => deleteUser(user.id)}
                 ></User>)}
             </div>
         );

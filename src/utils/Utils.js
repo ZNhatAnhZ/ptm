@@ -33,7 +33,7 @@ export function importJsonTasks(importTasks) {
         const reader = new FileReader();
         reader.onload = (event) => {
             try {
-                const importedTasks = JSON.parse(event.target.result);
+                const importedTasks = JSON.parse(event?.target?.result);
                 importedTasks.forEach(task => {
                     if (typeof task.id !== 'string' || typeof task.description !== 'string' || typeof task.isCompleted !== 'boolean') {
                         throw new Error('Invalid task format');
