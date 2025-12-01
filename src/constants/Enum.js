@@ -12,3 +12,4 @@ export const ColorSchemeKey = "ColorSchemeKey";
 export const DefaultColorScheme = "light dark";
 export const DarkColorScheme = DefaultColorScheme;
 export const LightColorScheme = "light";
+export const maxItemsPerPage = 5;

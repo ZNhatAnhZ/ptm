@@ -10,15 +10,16 @@ const Button = styled.button`
     border: ${props => props.isHightlighted === true ? '2px solid black' : null};
 `;
 
-export default function User({id, name, email, phone, website}) {
+export default function User({id, name, email, phone, website, onDelete}) {
     const [isShowDetails, setIsShowDetails] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
         <Item>
-            <div style={{display: 'flex'}}>
+            <div style={{display: 'flex', justifyContent: 'space-between'}}>
                 <Button onClick={() => setIsShowDetails(!isShowDetails)}>+</Button>
                 <span>User: {name}</span>
+                <Button style={{marginLeft: '0.5em'}} onClick={onDelete}>X</Button>
             </div>
             <div style={{display: isShowDetails ? 'flex' : 'none', flexDirection: 'column'}}>
                 <div>id: {id}</div>
