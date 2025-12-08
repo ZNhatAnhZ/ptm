@@ -2,9 +2,11 @@ import {useQuery} from "@tanstack/react-query";
 import axios from "axios";
 import {User} from "./";
 import {useEffect, useState} from "react";
-import {ASC, AZ, DESC, maxItemsPerPage, ZA} from "../constants/Enum.js";
+import {ASC, AZ, DESC, ZA} from "../constants/Enum.js";
 import styled from "styled-components";
 import {useSorting} from "../hooks/index.js";
+import usePagination from "../hooks/usePagination.js";
+import isEqual from "lodash/isEqual";
 
 const PaginationDev = styled.div`
     display: flex;
@@ -12,12 +14,19 @@ const PaginationDev = styled.div`
     justify-content: center;
 `;
 
+const searchUserByNamePrefix = (namePrefix, users) => {
+    if (typeof namePrefix === 'string' && namePrefix.length > 0) {
+        const filterUsers = users.filter(user => user.name.startsWith(namePrefix));
+        return isEqual(users, filterUsers) ? users : filterUsers;
+    }
+    console.log("No filtering applied");
+    return users;
+}
+
 export default function UserList({filter}) {
     const [users, setUsers] = useState([]);
-    const [filteredUsers, setFilteredUsers] = useState([]);
-    const [page, setPage] = useState(1);
-    const [maxPage, setMaxPage] = useState(1);
-    const [sortedUsers, order, setOrder] = useSorting(users, 'name');
+    const [sortedUsers, order, setOrder] = useSorting(searchUserByNamePrefix(filter?.name, users), 'name');
+    const [paginatedUsers, page, maxPage, setPage] = usePagination(sortedUsers);
     const {
         data = [],
         isLoading,
@@ -33,26 +42,8 @@ export default function UserList({filter}) {
 
     // init data
     useEffect(() => {
-        setMaxPage(Math.ceil(data.length / maxItemsPerPage));
-        setUsers(data);
-    }, [data])
-
-    // handle page bounds
-    useEffect(() => {
-        if (page > maxPage) setPage(maxPage);
-        if (page < 1) setPage(1);
-    }, [page, maxPage]);
-
-    useEffect(() => {
-        if (Array.isArray(sortedUsers)) {
-            const searchedUsers = typeof filter?.name === 'string' && filter?.name?.length > 0 ? sortedUsers.filter(user => user.name.startsWith(filter.name)) : sortedUsers
-            const startIndex = (page - 1) * maxItemsPerPage;
-            const paginatedUsers = searchedUsers.slice(startIndex, startIndex + maxItemsPerPage);
-            const maxPage = Math.max(1, Math.ceil(searchedUsers.length / maxItemsPerPage));
-            setFilteredUsers(JSON.stringify(filteredUsers) !== JSON.stringify(paginatedUsers) ? paginatedUsers : filteredUsers);
-            setMaxPage(maxPage);
-        }
-    }, [data, filter, sortedUsers, filteredUsers, order, page, users])
+        setUsers(isEqual(users, data) ? users : data);
+    }, [data]);
 
     const deleteUser = (id) => {
         setUsers(users.filter(user => user.id !== id));
@@ -76,7 +67,7 @@ export default function UserList({filter}) {
                 <button onClick={() => {
                     setOrder(order === ASC ? DESC : ASC);
                 }}>Sort {order === ASC ? AZ : ZA}</button>
-                {filteredUsers.map(user => <User key={user.id}
+                {paginatedUsers.map(user => <User key={user.id}
                                                  id={user.id}
                                                  email={user.email}
                                                  name={user.name}
