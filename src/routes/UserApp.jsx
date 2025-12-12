@@ -1,8 +1,8 @@
-import {BackgroundArea, AppArea} from "./components";
-import {ColorSchemeProvider} from "./contexts/index.js";
-import UserList from "./components/UserList.jsx";
+import {BackgroundArea, AppArea} from "../components/index.js";
+import {ColorSchemeProvider} from "../contexts/index.js";
+import UserList from "../components/UserList.jsx";
 import {QueryClientProvider, QueryClient} from "@tanstack/react-query";
-import SearchArea from "./components/SearchArea.jsx";
+import SearchArea from "../components/SearchArea.jsx";
 import {useState} from "react";
 
 const queryClient = new QueryClient()

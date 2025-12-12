@@ -1,7 +1,7 @@
-import {Statistics, FilterArea, CreateTaskArea, Task, BackgroundArea, UtilsArea, AppArea} from "./components";
-import {useFilter, useTask} from "./hooks";
-import {filterPrefixDescTasks, filterStatusTasks} from "./utils";
-import {ColorSchemeProvider} from "./contexts/index.js";
+import {Statistics, FilterArea, CreateTaskArea, Task, BackgroundArea, UtilsArea, AppArea} from "../components/index.js";
+import {useFilter, useTask} from "../hooks/index.js";
+import {filterPrefixDescTasks, filterStatusTasks} from "../utils/index.js";
+import {ColorSchemeProvider} from "../contexts/index.js";
 
 export default function PtmApp() {
     const {tasks, addTask, updateTask, importTasks} = useTask();

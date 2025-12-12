@@ -6,6 +6,7 @@ export const FilterEnum = {
 
 export const DefaultFilters = {prefixDesc: '', status: FilterEnum.ALL}
 
+export const BlogArrayKey = "BlogArrayKey";
 export const TaskArrayKey = "TaskArray";
 export const ColorSchemeKey = "ColorSchemeKey";
 

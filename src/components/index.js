@@ -12,3 +12,4 @@ export {default as Modal} from "./Modal.jsx";
 export {default as Item} from "./Item.jsx";
 export {default as Post} from "./Post.jsx";
 export {default as PostList} from "./PostList.jsx";
+export {default as Blog} from "./Blog.jsx";
