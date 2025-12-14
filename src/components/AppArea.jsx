@@ -7,9 +7,7 @@ const AppAreaDiv = styled.div`
     border: 1px solid ${props => props.colorscheme === DarkColorScheme ? '#ffffff' : '#242424'};
     border-radius: 1em;
     display: flex;
-    flex-wrap: wrap;
     flex-direction: column;
-    margin: auto;
 `;
 
 export default function AppArea({children}) {

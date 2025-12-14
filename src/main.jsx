@@ -15,11 +15,16 @@ import Contact from "./routes/Contact.jsx";
 import Register from "./routes/Register.jsx";
 import Login from "./routes/Login.jsx";
 import Admin from "./routes/Admin.jsx";
+import CourseMgntApp from "./routes/CourseMgntApp.jsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <App/>,
+    },
+    {
+        path: "/course-mgmt",
+        element: <CourseMgntApp/>,
     },
     {
         path: "/ptm",

@@ -19,6 +19,7 @@ export default function App() {
                         <Link to='/register'>Visit register page</Link>
                         <Link to='/login'>Visit login page</Link>
                         <Link to='/admin'>Visit admin page</Link>
+                        <Link to='/course-mgmt'>Visit course mgmt page</Link>
                     </AppArea>
                 </BackgroundArea>
             </ColorSchemeProvider>

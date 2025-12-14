@@ -1,15 +1,16 @@
 import styled from "styled-components";
 import {useColorScheme} from "../hooks";
-import {DarkColorScheme, DefaultColorScheme} from "../constants";
+import {DarkColorScheme} from "../constants";
 
 const BackgroundDiv = styled.div`
-    color-scheme: ${props => props.colorscheme || DefaultColorScheme};
     background-color: ${props => props.colorscheme === DarkColorScheme ? '#242424' : '#FFFFFF'};
     color: ${props => props.colorscheme === DarkColorScheme ? '#FFFFFF' : '#242424'};
     display: flex;
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
+    min-height: 100vh;
+    min-width: 100vw;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `;
 
 export default function BackgroundArea({children}) {
